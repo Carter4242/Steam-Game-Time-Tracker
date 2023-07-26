@@ -12,12 +12,12 @@ def check_IDs(listNewFiles=True, listIDSummaries=True):
     totalNewGames, totalOldGames = 0, 0
     for id in SteamIDs:
         # ensure the current ID folder has been created, if not, create it
-        IdFolder = SteamIDFolder + "\\" + id
+        IdFolder = SteamIDFolder + "/" + id
         if not os.path.exists(IdFolder):
             os.mkdir(IdFolder)
 
         # ensure the current IDs games folder has been created, if not this is the first run, so check every game
-        gamesFolder = IdFolder + "\games"
+        gamesFolder = IdFolder + "/games"
         if not os.path.exists(gamesFolder):  # check every game
             os.mkdir(gamesFolder)
             slink1 = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key="
@@ -43,10 +43,10 @@ def check_IDs(listNewFiles=True, listIDSummaries=True):
                 if (str(game["appid"])) not in gamesFiles:  # file does not exist
                     if listNewFiles:
                         print("\nFor ID: " + id + ". Adding file: " + gamesFolder +
-                              "\\" + str(game["appid"]) + " for game " + game["name"])
+                              "/" + str(game["appid"]) + " for game " + game["name"])
                         print(
                             "With " + str(game["playtime_forever"]) + " minutes of game time")
-                    with open(gamesFolder + "\\" + str(game["appid"]), 'w') as f:
+                    with open(gamesFolder + "/" + str(game["appid"]), 'w') as f:
                         # first line of the file is the name of the game
                         f.write(game["name"] + "\n")
                         # then add yesterdays date and the current total playtime
@@ -55,13 +55,13 @@ def check_IDs(listNewFiles=True, listIDSummaries=True):
                     newGames += 1  # added 1 game
                 else:  # file exists
                     last_line = ""  # get the last line of the file to see if total playtime has changed since we've last checked
-                    with open(gamesFolder + "\\" + str(game["appid"]), 'r') as f:
+                    with open(gamesFolder + "/" + str(game["appid"]), 'r') as f:
                         for line in f:
                             pass
                         last_line = line
                     if int(last_line.split()[1]) != game["playtime_forever"]:
                         oldGames += 1  # updated 1 game
-                        with open(gamesFolder + "\\" + str(game["appid"]), 'a') as f:
+                        with open(gamesFolder + "/" + str(game["appid"]), 'a') as f:
                             # add yesterdays date and the current total playtime
                             f.write("\n" + str(yesterday) + " " +
                                     str(game["playtime_forever"]))
@@ -82,12 +82,12 @@ try:  # first try to get it from GitHub Actions
 except:  # if that doesn't work we are hopefully running locally, so try the .env file
     KEY = config("STEAM_API_KEY")
 
-
 # Create list of SteamIDs to check
 SteamIDs = []
-with open(os.getcwd() + "\Steam IDs.txt", 'r') as f:
+with open(os.getcwd() + "/SteamIDs.txt", 'r') as f:
     for line in f:
-        SteamIDs.append(str(line).strip())
+        if (len(str(line).strip().split()[0]) == 17):
+            SteamIDs.append(str(line).strip())
 
 # get yesterdays date, it should be the early hours of today in EST time (1-4AM)
 tz = timezone('EST')
@@ -96,7 +96,7 @@ yesterday = datetime.now(tz).date() - relativedelta(days=1)
 print("Yesterday was hopefully: ", yesterday)
 
 # ensure the Steam IDs folder has been created, if not, create it
-SteamIDFolder = os.getcwd()+"\Steam IDs"
+SteamIDFolder = os.getcwd()+"/SteamIDs"
 if not os.path.exists(SteamIDFolder):
     os.mkdir(SteamIDFolder)
     print("\nStarting check 1 of 2\n")
