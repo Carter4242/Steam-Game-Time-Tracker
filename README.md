@@ -4,7 +4,7 @@ Tracks a list of Steam users' daily game time using GitHub actions.
 ### Install requirements with:
     pip install -r requirements.txt
 
-Put your steam API key (https://steamcommunity.com/dev/registerkey) in the .env file
+If running locally, put your Steam API key (https://steamcommunity.com/dev/registerkey) in the .env file. If using Github Actions, create a repo secret called STEAMAPIKEY with your API key.
 
 Put some SteamID64(s) in Steam IDs.txt.
 
