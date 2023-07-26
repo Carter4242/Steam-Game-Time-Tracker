@@ -1,3 +1,4 @@
 python-decouple
+python_dateutil
 pytz
 Requests
