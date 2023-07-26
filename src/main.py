@@ -7,15 +7,16 @@ import os
 
 
 KEY = config("STEAM_API_KEY")
+STEAMID = config("STEAM_ID")
 
 gamesFolder = os.getcwd()+"\games"
 if not os.path.exists(gamesFolder):
     os.mkdir(gamesFolder)
     slink1 = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key="
-    slink2 = "&steamid=" + "76561198262842527" + "&skip_unvetted_apps=false&include_appinfo=1&include_played_free_games=1&format=json"
+    slink2 = "&steamid=" + STEAMID + "&skip_unvetted_apps=false&include_appinfo=1&include_played_free_games=1&format=json"
 else:
     slink1 = "https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key="
-    slink2 = "&steamid=" + "76561198262842527" + "&format=json"
+    slink2 = "&steamid=" + STEAMID + "&format=json"
 gamesFiles = os.listdir(gamesFolder)
 
 #Steam API link formatting for "GetOwnedGames"
