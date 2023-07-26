@@ -75,8 +75,13 @@ def check_IDs(listNewFiles=True, listIDSummaries=True):
           "game(s) and updated", totalOldGames, "game(s)\n\n")
 
 
-# Get steam API key from .env file
-KEY = config("STEAM_API_KEY")
+# Get steam API key from .env file or the running Github Actions secret
+try:  # first try to get it from GitHub Actions
+    KEY = os.environ["STEAMAPIKEY"]
+    print("Using Repo Secret Successfully")
+except:  # if that doesn't work we are hopefully running locally, so try the .env file
+    KEY = config("STEAM_API_KEY")
+
 
 # Create list of SteamIDs to check
 SteamIDs = []
