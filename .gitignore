@@ -1,2 +1,4 @@
 .env
 games/*
+.vscode
+Steam IDs.txt
