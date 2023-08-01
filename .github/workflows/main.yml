@@ -51,3 +51,5 @@ jobs:
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Update User Playtime files
+        commit_user_name: BOT-Carter4242
+        commit_user_email: 115385416+BOT-Carter4242@users.noreply.github.com
