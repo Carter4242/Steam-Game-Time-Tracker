@@ -38,6 +38,8 @@ def check_IDs(listNewFiles=True, listIDSummaries=True):
         user = r.json()["response"]
 
         newGames, oldGames = 0, 0  # counts of added/updated games
+        if len(user) == 0:
+            return
         for game in user["games"]:  # check every game
             if (game["playtime_forever"]) != 0:  # If never played no need to add
                 if (str(game["appid"])) not in gamesFiles:  # file does not exist
