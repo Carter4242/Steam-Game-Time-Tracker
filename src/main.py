@@ -39,7 +39,7 @@ def check_IDs(listNewFiles=True, listIDSummaries=True):
 
         newGames, oldGames = 0, 0  # counts of added/updated games
         if "games" not in user:
-            return
+            continue
         for game in user["games"]:  # check every game
             if (game["playtime_forever"]) != 0:  # If never played no need to add
                 if (str(game["appid"])) not in gamesFiles:  # file does not exist
