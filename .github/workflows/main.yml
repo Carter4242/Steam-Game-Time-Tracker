@@ -17,20 +17,20 @@ jobs:
 
     steps:
     # Check out repository under $GITHUB_WORKSPACE, so the job can access it
-    - uses: actions/checkout@v3.5.3
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.head_ref }}
 
     # Run using Python 3.11.4 for consistency
     - name: Set up Python 3.11.4
-      uses: actions/setup-python@v4.3.0
+      uses: actions/setup-python@v7
       with:
         python-version: '3.11.4'
         architecture: 'x64'
 
     # Cache dependencies. From:
     # https://github.com/actions/cache/blob/master/examples.md#python---pip
-    - uses: actions/cache@v3
+    - uses: actions/cache@v6
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
@@ -48,7 +48,7 @@ jobs:
         python3 src/main.py
 
     # Commit all changed files to the repository
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: stefanzweifel/git-auto-commit-action@v7
       with:
         commit_message: Update User Playtime files
         commit_user_name: BOT-Carter4242
