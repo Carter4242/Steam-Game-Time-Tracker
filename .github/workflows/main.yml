@@ -21,11 +21,11 @@ jobs:
       with:
         ref: ${{ github.head_ref }}
 
-    # Run using Python 3.11.4 for consistency
-    - name: Set up Python 3.11.4
+    # Run using latest Python 3.11.x (exact patch pins break when runner images change)
+    - name: Set up Python 3.11
       uses: actions/setup-python@v7
       with:
-        python-version: '3.11.4'
+        python-version: '3.11'
         architecture: 'x64'
 
     # Cache dependencies. From:
